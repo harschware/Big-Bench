@@ -34,7 +34,7 @@ my $csv = Text::CSV->new ( { binary => 1, sep_char => ';' } )  # should set bina
 
 open my $fh, "<:encoding(utf8)", $file or dieWithUsage( "Cannot open '$file': $!" );
 $csv->getline( $fh ); # Toss out column headers and make our own...
-print "Query\tiMinutes\n";
+print "Query\tMinutes\n";
 while ( my $row = $csv->getline( $fh ) ) {
    #for( my $i=0; $i < $#$row; $i++ ) {
    #    print "$i:" . $row->[$i] . "\n";
@@ -57,7 +57,7 @@ while ( my $row = $csv->getline( $fh ) ) {
    my $time = $row->[6];
    $time = $time / ( 60 * 1000 );  # convert milliseconds to minutes
    $time = sprintf "%.2f", $time; # round to two places
-   print $time, "\r\n";
+   print $time, "\n";
 
    push @rows, $row;
 }
