@@ -543,8 +543,27 @@ Causes:
 
 
 ###  Caused by: java.lang.InstantiationException: org.apache.hadoop.hive.ql.parse.ASTNodeOrigin ### 
+OR
+
 * https://issues.apache.org/jira/browse/HIVE-6765
 * https://issues.apache.org/jira/browse/HIVE-5068
+
+###  java.lang.Exception: XMLEncoder: discarding statement XMLEncoder.writeObject(MapredWork);
+related to:
+* Caused by: java.lang.InstantiationException: org.apache.hadoop.hive.ql.parse.ASTNodeOrigin
+
+```
+java.lang.RuntimeException: Cannot serialize object
+    at org.apache.hadoop.hive.ql.exec.Utilities$1.exceptionThrown(Utilities.java:652)
+Caused by: java.lang.Exception: XMLEncoder: discarding statement XMLEncoder.writeObject(MapredWork);
+			...
+```
+
+* https://issues.apache.org/jira/browse/HIVE-5068
+
+
+### FAILED: SemanticException [Error 10016]: Line 7:69 Argument type mismatch '0.0': The expression after ELSE should have the same type as those after THEN: "bigint" is expected but "double" is found
+* https://issues.apache.org/jira/browse/HIVE-5825
 
 
 ### Error: GC overhead limit exceeded

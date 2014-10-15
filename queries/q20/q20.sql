@@ -28,10 +28,10 @@ STORED AS TEXTFILE LOCATION '${hiveconf:TEMP_DIR}';
 INSERT INTO TABLE ${hiveconf:TEMP_TABLE}
 SELECT
   cid,
-  100.0 * COUNT(distinct (CASE WHEN r_date IS NOT NULL THEN oid ELSE 0.0 END)) / COUNT(distinct oid) AS r_order_ratio,
+  100.0 * COUNT(distinct (CASE WHEN r_date IS NOT NULL THEN oid ELSE 0 END)) / COUNT(distinct oid) AS r_order_ratio,
   SUM(CASE WHEN r_date IS NOT NULL THEN 1 ELSE 0 END) / COUNT(item) * 100 AS r_item_ratio,
   CASE WHEN SUM(s_amount)=0.0 THEN 0.0 ELSE (SUM(CASE WHEN r_date IS NOT NULL THEN r_amount ELSE 0.0 END) / SUM(s_amount) * 100) END AS r_amount_ratio,
-  COUNT(distinct (CASE WHEN r_date IS NOT NULL THEN r_date ELSE 0.0 END)) AS r_freq
+  COUNT(distinct (CASE WHEN r_date IS NOT NULL THEN r_date ELSE 0 END)) AS r_freq
 FROM (
   SELECT --s.ss_sold_date_sk AS s_date, --
     r.sr_returned_date_sk AS r_date,
