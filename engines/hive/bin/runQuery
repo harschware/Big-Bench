@@ -64,7 +64,9 @@ runModule () {
 
   # Run the main method implemented in the query's run.sh
   TIME_MEASUREMENT_FILE="`mktemp`"
-  echo "======= $TABLE_PREFIX time =========" > "$TIME_MEASUREMENT_FILE"
+  STARTAT=`date +%Y/%m/%d %H:%M:%S`
+  STARTAT_EPOCH=`date +%s` # seconds since epoch
+  echo "======= $TABLE_PREFIX time =========" $STARTAT $STARTAT_EPOCH  > "$TIME_MEASUREMENT_FILE"
   { time "$QUERY_MAIN_METHOD" > >(tee -a "$LOG_FILE_NAME") 2>&1 ; } 2>> "$TIME_MEASUREMENT_FILE"
   cat "$TIME_MEASUREMENT_FILE" >> "$LOG_FILE_NAME"
   rm -rf "$TIME_MEASUREMENT_FILE"
@@ -72,6 +74,8 @@ runModule () {
 
   echo "======= $TABLE_PREFIX result =======" | tee -a "$LOG_FILE_NAME" 2>&1
   echo "results in: $RESULT_DIR" | tee -a "$LOG_FILE_NAME" 2>&1
+  STOPAT=`date +%Y/%m/%d %H:%M:%S`
+  STOPAT_EPOCH=`date +%s` # seconds since epoch
   echo "to display: hadoop fs -cat $RESULT_DIR/*" | tee -a "$LOG_FILE_NAME" 2>&1
-  echo "=========================" | tee -a "$LOG_FILE_NAME" 2>&1
+  echo "=========================" $STOPAT $STOPAT_EPOCH | tee -a "$LOG_FILE_NAME" 2>&1
 }
